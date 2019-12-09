@@ -4,6 +4,19 @@ import groovy.transform.Field
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurperClassic
 
+def git_configure (git_username="Jenkins automation", git_email='jenkins@local') {
+  try {
+    sh """
+      git config --global user.name ${git_username}
+      git config --global user.email ${git_email}
+    """
+  }
+  catch (Exception e) {
+
+  }
+
+}
+
 def git_pull_singl_branch (git_repository, git_branch, credentialsId, directory=''){
   withCredentials([sshUserPrivateKey(credentialsId: credentialsId, keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASS', usernameVariable: 'SSH_USER')]) {
     try {
@@ -53,7 +66,7 @@ def git_merge (git_repository, src_branch, dst_branch, commit_message, credentia
     try {
       echo "src_branch = " + src_branch
       echo "dst_branch = " + dst_branch
-      
+      git_configure()
       sh """
       set =x
         eval `ssh-agent -a ~/.ssh-agent.sock`
