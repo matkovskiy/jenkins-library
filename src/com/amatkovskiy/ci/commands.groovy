@@ -48,19 +48,21 @@ def git_pull (git_repository, credentialsId, directory=''){
 }
 
 
-def git_merge (git_branch, src_branch, dst_branch, commit_message, credentialsId, directory=''){
+def git_merge (git_repository, src_branch, dst_branch, commit_message, credentialsId, directory=''){
   withCredentials([sshUserPrivateKey(credentialsId: credentialsId, keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASS', usernameVariable: 'SSH_USER')]) {
     try {
+      echo "src_branch = " + src_branch
+      echo "dst_branch = " + dst_branch
+      
       sh """
-      set -x
+      set =x
         eval `ssh-agent -a ~/.ssh-agent.sock`
         ( openssl rsa -passin env:SSH_PASS -in ${SSH_KEY} | ssh-add -  ) || ( ssh-agent -k && exit 1)
         git clone ${git_repository} ${directory}
         cd ${directory}
-        // git chechout ${dst_branch}
-        // git merge ${src_branch} -m "${commit_message}"
-        
-        // git push
+        git chechout ${dst_branch}
+        git merge ${src_branch} -m "${commit_message}"
+        git push
         ssh-agent -k
       """
     }
