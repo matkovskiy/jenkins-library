@@ -60,7 +60,7 @@ def git_merge (git_repository, src_branch, dst_branch, commit_message, credentia
         ( openssl rsa -passin env:SSH_PASS -in ${SSH_KEY} | ssh-add -  ) || ( ssh-agent -k && exit 1)
         git clone ${git_repository} ${directory}
         cd ${directory}
-        git chechout ${dst_branch}
+        git checkout ${dst_branch}
         git merge ${src_branch} -m "${commit_message}"
         git push
         ssh-agent -k
