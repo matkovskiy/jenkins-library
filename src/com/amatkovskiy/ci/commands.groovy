@@ -76,7 +76,6 @@ def git_merge (git_repository, src_branch, dst_branch, commit_message, credentia
         git checkout ${src_branch}
         git checkout ${dst_branch}
         git merge ${src_branch} -m "${commit_message}"
-        ls -la
         git push --set-upstream origin ${dst_branch}
         ssh-agent -k
       """
