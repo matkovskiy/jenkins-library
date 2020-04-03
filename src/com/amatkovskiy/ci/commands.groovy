@@ -8,13 +8,9 @@ def add_host_to_known_hosts (hostname) {
   try {
     sh( 
 script: """
-      echo "Hello here"
-      printenv
-
       mkdir -p ~/.ssh/
       hostname_clear=\$( echo "${hostname}" | cut -d "@" -f2 | cut -d ":" -f1 )
-      echo "+++++++++++++++++++++++++++++"
-      printenv
+      ssh-keyscan -H ${hostname_clear} >> ~/.ssh/known_hosts
 
     """, returnStdout: true) 
   }
