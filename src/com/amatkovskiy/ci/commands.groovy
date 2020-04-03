@@ -9,13 +9,14 @@ def add_host_to_known_hosts (hostname) {
     sh """
       echo "Hello here"
 
-      mkdir -p ~/.ssh/
-      hostname_clear=`echo "${hostname}" | cut -d "@" -f2 | cut -d ":" -f1`
+      #mkdir -p ~/.ssh/
+      #hostname_clear=`echo "${hostname}" | cut -d "@" -f2 | cut -d ":" -f1`
       echo "hostname_clear = ${hostname_clear}"
-      ssh-keyscan -H ${hostname_clear} >> ~/.ssh/known_hosts
+      #ssh-keyscan -H ${hostname_clear} >> ~/.ssh/known_hosts
     """
   }
   catch (Exception e) {
+    echo "Error in add_host_to_known_hosts"
 
   }
 }
