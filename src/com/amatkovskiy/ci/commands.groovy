@@ -7,6 +7,7 @@ import groovy.json.JsonSlurperClassic
 def add_host_to_known_hosts (hostname) {
   try {
     sh """
+      mkdir ~/.ssh/
       hostname=`echo "${hostname}" | cut -d "@" -f2 | cut -d ":" -f1`
       ssh-keyscan -H ${hostname} >> ~/.ssh/known_hosts
     """
