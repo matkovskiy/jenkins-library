@@ -8,8 +8,8 @@ def add_host_to_known_hosts (hostname) {
   try {
     sh """
       echo "Hello here"
-      
-      mkdir ~/.ssh/
+
+      mkdir -p ~/.ssh/
       hostname_clear=`echo "${hostname}" | cut -d "@" -f2 | cut -d ":" -f1`
       echo "hostname_clear = ${hostname_clear}"
       ssh-keyscan -H ${hostname_clear} >> ~/.ssh/known_hosts
