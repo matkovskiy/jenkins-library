@@ -9,6 +9,8 @@ def add_host_to_known_hosts (hostname) {
     sh """
       echo "Hello here"
 
+      mkdir -p ~/.ssh/
+
     """
   }
   catch (Exception e) {
