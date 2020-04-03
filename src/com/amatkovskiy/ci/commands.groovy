@@ -4,6 +4,18 @@ import groovy.transform.Field
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurperClassic
 
+def add_host_to_known_hosts (hostname) {
+  try {
+    sh """
+      hostname=`echo "${hostname}" | cut -d "@" -f2 | cut -d ":" -f1`
+      ssh-keyscan -H ${hostname} >> ~/.ssh/known_hosts
+    """
+  }
+  catch (Exception e) {
+
+  }
+}
+
 def git_configure (git_username="Jenkins automation", git_email='jenkins@local') {
   try {
     sh """
@@ -14,13 +26,13 @@ def git_configure (git_username="Jenkins automation", git_email='jenkins@local')
   catch (Exception e) {
 
   }
-
 }
 
 def git_pull_singl_branch (git_repository, git_branch, credentialsId, directory=''){
   withCredentials([sshUserPrivateKey(credentialsId: credentialsId, keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASS', usernameVariable: 'SSH_USER')]) {
     try {
       echo "git_branch = " + git_branch
+      add_host_to_known_hosts(git_repository)
       sh """
       set +x
         eval `ssh-agent -a ~/.ssh-agent.sock`
@@ -43,6 +55,7 @@ def git_pull (git_repository, credentialsId, directory=''){
   withCredentials([sshUserPrivateKey(credentialsId: credentialsId, keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASS', usernameVariable: 'SSH_USER')]) {
     try {
       echo "git_branch = " + git_branch
+      add_host_to_known_hosts(git_repository)
       sh """
       set +x
         eval `ssh-agent -a ~/.ssh-agent.sock`
@@ -67,6 +80,7 @@ def git_merge (git_repository, src_branch, dst_branch, commit_message, credentia
       echo "src_branch = " + src_branch
       echo "dst_branch = " + dst_branch
       git_configure()
+      add_host_to_known_hosts(git_repository)
       sh """
       set =x
         eval `ssh-agent -a ~/.ssh-agent.sock`
