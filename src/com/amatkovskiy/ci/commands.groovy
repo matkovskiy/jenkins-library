@@ -10,7 +10,7 @@ def add_host_to_known_hosts (hostname) {
       echo "Hello here"
 
       mkdir -p ~/.ssh/
-      export hostname_clear=`echo "${hostname}" | cut -d "@" -f2 | cut -d ":" -f1`
+      export hostname_clear=$(echo "${hostname}" | cut -d "@" -f2 | cut -d ":" -f1)
       echo "${hostname_clear}"
 
     """
