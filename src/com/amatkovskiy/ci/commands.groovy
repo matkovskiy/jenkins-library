@@ -12,7 +12,7 @@ script: """
       printenv
 
       mkdir -p ~/.ssh/
-      hostname_clear="$( echo "${hostname}" | cut -d "@" -f2 | cut -d ":" -f1 )"
+      hostname_clear=\$( echo "${hostname}" | cut -d "@" -f2 | cut -d ":" -f1 )
       echo "+++++++++++++++++++++++++++++"
       printenv
 
