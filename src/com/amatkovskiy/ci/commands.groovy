@@ -82,6 +82,7 @@ def git_merge (git_repository, src_branch, dst_branch, commit_message, credentia
       echo "src_branch = " + src_branch
       echo "dst_branch = " + dst_branch
       git_configure()
+      echo "run add_host_to_known_hosts with: " + add_host_to_known_hosts
       add_host_to_known_hosts(git_repository)
       sh """
       set =x
