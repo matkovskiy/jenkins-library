@@ -6,7 +6,7 @@ import groovy.json.JsonSlurperClassic
 
 def add_host_to_known_hosts (hostname) {
   try {
-    sh """
+    sh '''
       echo "Hello here"
       printenv
 
@@ -15,7 +15,7 @@ def add_host_to_known_hosts (hostname) {
       echo "+++++++++++++++++++++++++++++"
       printenv
 
-    """
+    '''
   }
   catch (Exception e) {
     echo "Error in add_host_to_known_hosts"
