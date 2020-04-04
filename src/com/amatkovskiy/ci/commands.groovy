@@ -80,9 +80,8 @@ def git_pull (git_repository, credentialsId, directory=''){
 def git_merge (git_repository, src_branch, dst_branch, commit_message, credentialsId, directory=''){
   withCredentials([sshUserPrivateKey(credentialsId: credentialsId, keyFileVariable: 'SSH_KEY', passphraseVariable: 'SSH_PASS', usernameVariable: 'SSH_USER')]) {
     try {
-      echo "src_branch213 = " + src_branch
-      echo "dst_branch123 = " + dst_branch
-      echo "Test1"
+      echo "src_branch = " + src_branch
+      echo "dst_branch = " + dst_branch
       add_host_to_known_hosts(git_repository)      
       git_configure()
       sh """
