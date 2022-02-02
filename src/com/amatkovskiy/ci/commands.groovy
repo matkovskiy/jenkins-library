@@ -123,8 +123,8 @@ def git_branches_diff (git_repository, src_branch, dst_branch, credentialsId, di
           eval `ssh-agent -a ~/.ssh-agent.sock` 
           ( openssl rsa -passin env:SSH_PASS -in ${SSH_KEY} | ssh-add -  ) || ( ssh-agent -k && exit 1) 
           } &> /dev/null
-          git clone ${git_repository} ${directory} &> /dev/null
-          cd ${directory} &> /dev/null 
+          git clone ${git_repository} ${directory}_diff &> /dev/null
+          cd ${directory}_diff &> /dev/null 
           echo "==========================================================================="
           git log origin/${dst_branch}..origin/${src_branch} --oneline --no-merges
           echo "==========================================================================="
